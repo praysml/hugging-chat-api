@@ -232,15 +232,17 @@ class ChatBot:
         mdl = ""
         if to == 0:
             mdl = "OpenAssistant/oasst-sft-6-llama-30b-xor",
+            self.active_model = "OpenAssistant/oasst-sft-6-llama-30b-xor"
         elif to == 1:
             mdl = "meta-llama/Llama-2-70b-chat-hf"
+            self.active_model = "meta-llama/Llama-2-70b-chat-hf"
         else:
             raise BaseException("Can't switch llm, unexpected index. For now, 0 is `OpenAssistant/oasst-sft-6-llama-30b-xor`, 1 is `meta-llama/Llama-2-70b-chat-hf` :)")
 
         response = self.session.post(self.hf_base_url + "/chat/settings", headers=self.get_headers(ref=True), cookies=self.get_cookies(), allow_redirects=True, data={
-            "shareConversationsWithModelAuthors": "on",
+            "shareConversationsWithModelAuthors": "off",
             "ethicsModalAcceptedAt": "",
-            "searchEnabled": "true",
+            "searchEnabled": "false",
             "activeModel": mdl,
         })
 
